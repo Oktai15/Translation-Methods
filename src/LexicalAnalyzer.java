@@ -95,7 +95,7 @@ public class LexicalAnalyzer {
             }
             default:
                 throw new ParseException("Illegal character " + exp.charAt(curPos) +
-                        " pos: " + (Integer.toString(curPos)), curPos);
+                        " at position: " + (Integer.toString(curPos)), curPos);
         }
     }
 
