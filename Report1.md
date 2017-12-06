@@ -6,8 +6,8 @@
 
                                     <title> ::= 'function ' <nameAndArgs> ':' <name> ';'
                                     <title> ::= 'procedure ' <nameAndArgs> ';'
-                                    <nameAndArgs> ::= <name> '(' <args> ')'
-                                    <args> ::= <onetype> <more1type>
+                                    <nameAndArgs> ::= <name> <args> 
+                                    <args> ::= '(' <onetype> <more1type> ')'
                                     <args> ::= eps
                                     <onetype> ::= var <name> <more1var> ':' <name>
                                     <onetype> ::= <name> <more1var> ':' <name>

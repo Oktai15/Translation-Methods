@@ -7,6 +7,8 @@ public class Main {
 
     private static List<String> tests = Arrays.asList(
             "procedure proc();",
+            "procedure proc;",
+            "function fun : integer;",
             "function func() : char;",
             "function func(a : integer) : string;",
             "function func(a, b : integer) : string;",
@@ -25,8 +27,8 @@ public class Main {
             trees.add(parser.parse(test));
         }
 
-        Visualizator visualizator = new Visualizator(trees.get(7));
-        visualizator.show(tests.get(7));
+        Visualizator visualizator = new Visualizator(trees.get(2));
+        visualizator.show(tests.get(2));
     }
 }
 

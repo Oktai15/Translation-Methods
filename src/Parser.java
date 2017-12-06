@@ -36,13 +36,8 @@ public class Parser {
         switch (lex.curToken().getLexeme()) {
             case NAME:
                 lex.nextToken();
-                isRightLexemeNow(Lexeme.OPENBRACKET);
-                lex.nextToken();
                 Tree args = globalAndLocalArgs();
-                isRightLexemeNow(Lexeme.CLOSEBRACKET);
-                lex.nextToken();
-                return new Tree("nameAndArgs", Arrays.asList(new Tree(curValue), new Tree("("),
-                        args, new Tree(")")));
+                return new Tree("nameAndArgs", Arrays.asList(new Tree(curValue), args));
             default:
                 throw new AssertionError();
         }
@@ -50,13 +45,16 @@ public class Parser {
 
     private Tree globalAndLocalArgs() throws ParseException {
         switch (lex.curToken().getLexeme()) {
-            case NAME:
-            case VAR: {
+            case OPENBRACKET: {
+                lex.nextToken();
                 Tree oneType = oneType();
                 Tree otherTypes = moreOneType();
-                return new Tree("args", Arrays.asList(oneType, otherTypes));
+                isRightLexemeNow(Lexeme.CLOSEBRACKET);
+                lex.nextToken();
+                return new Tree("args", Arrays.asList(new Tree("("), oneType, otherTypes, new Tree(")")));
             }
-            case CLOSEBRACKET: {
+            case SEMICOLON:
+            case COLON: {
                 //eps
                 return new Tree("args");
             }
@@ -88,6 +86,9 @@ public class Parser {
                 }
                 return new Tree("onetype", Arrays.asList(new Tree(curVar), manyVars,
                         new Tree(":"), new Tree(curType)));
+            }
+            case CLOSEBRACKET:{
+                return new Tree("oneType");
             }
             default:
                 throw new AssertionError();
